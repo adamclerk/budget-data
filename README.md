@@ -28,30 +28,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`plaid-cli hello [FILE]`](#plaid-cli-hello-file)
 * [`plaid-cli help [COMMAND]`](#plaid-cli-help-command)
 * [`plaid-cli login:add`](#plaid-cli-loginadd)
 * [`plaid-cli login:list`](#plaid-cli-loginlist)
-
-## `plaid-cli hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ plaid-cli hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ plaid-cli hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/hello.ts)_
 
 ## `plaid-cli help [COMMAND]`
 
