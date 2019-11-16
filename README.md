@@ -30,6 +30,8 @@ USAGE
 <!-- commands -->
 * [`plaid-cli hello [FILE]`](#plaid-cli-hello-file)
 * [`plaid-cli help [COMMAND]`](#plaid-cli-help-command)
+* [`plaid-cli login:add [FILE]`](#plaid-cli-loginadd-file)
+* [`plaid-cli login:list [FILE]`](#plaid-cli-loginlist-file)
 
 ## `plaid-cli hello [FILE]`
 
@@ -67,4 +69,38 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+
+## `plaid-cli login:add [FILE]`
+
+launch a webpage and server to provide login credentials
+
+```
+USAGE
+  $ plaid-cli login:add [FILE]
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ plaid-cli login:add
+```
+
+_See code: [src/commands/login/add.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/add.ts)_
+
+## `plaid-cli login:list [FILE]`
+
+list all of the logins currently available
+
+```
+USAGE
+  $ plaid-cli login:list [FILE]
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ plaid-cli login:list
+```
+
+_See code: [src/commands/login/list.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/list.ts)_
 <!-- commandsstop -->

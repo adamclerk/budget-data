@@ -1,6 +1,5 @@
 import {Command, flags} from '@oclif/command'
 import { runServer } from '../../server';
-import { glob } from 'glob';
 
 export default class AddLogin extends Command {
   static description = 'launch a webpage and server to provide login credentials'
