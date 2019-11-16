@@ -1,0 +1,75 @@
+{
+  "name": "plaid-cli",
+  "description": "get data for personal budgeting",
+  "version": "0.0.0",
+  "author": "Adam Clark",
+  "bin": {
+    "plaid-cli": "./bin/run"
+  },
+  "bugs": "https://github.com/adamclerk/plaid-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "body-parser": "1.18.x",
+    "dotenv": "^8.2.0",
+    "ejs": "2.5.x",
+    "envvar": "1.1.x",
+    "express": "4.16.x",
+    "glob": "^7.1.6",
+    "glob-promise": "^3.4.0",
+    "mkdirp": "^0.5.1",
+    "moment": "2.22.x",
+    "open": "^7.0.0",
+    "plaid": "4.x.x",
+    "sigint": "^1.0.0",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@oclif/test": "^1",
+    "@oclif/tslint": "^3",
+    "@types/chai": "^4",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5",
+    "@types/node": "^10",
+    "chai": "^4",
+    "globby": "^10",
+    "mocha": "^5",
+    "nyc": "^14",
+    "ts-node": "^8",
+    "tslint": "^5",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/adamclerk/plaid-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "plaid-cli",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "adamclerk/plaid-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "tslint -p test -t stylish",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
