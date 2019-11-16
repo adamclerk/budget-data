@@ -15,8 +15,6 @@ export default class ListLogin extends Base {
     // flag with a value (-n, --name=VALUE)
   }
 
-  static args = [{name: 'file'}]
-
   async run() {
     super._run();
     const accountFolder = `${homedir()}/.plaid/accounts/*.json`;

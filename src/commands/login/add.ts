@@ -12,8 +12,6 @@ export default class AddLogin extends Command {
     help: flags.help({char: 'h'}),
   }
 
-  static args = [{name: 'file'}]
-
   async run() {
     const {args, flags} = this.parse(AddLogin);
     runServer();
