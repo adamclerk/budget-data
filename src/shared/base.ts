@@ -1,12 +1,16 @@
-import { Command } from '@oclif/command';
-import { IConfig } from '@oclif/config'
-import { } from 'plaid'
-export class Base extends Command {
-  plaidClient: any;
-  constructor(argv: string[], config: IConfig) {
-    super(argv, config);
-  }
-  async run() {
+import {Command} from '@oclif/command'
+import * as lowDb from 'lowdb'
+import * as FileAsync from 'lowdb/adapters/FileAsync'
+import {homedir} from 'os'
 
+export default abstract class extends Command {
+  public db!: lowDb.LowdbAsync<any>
+  async init() {
+    // do some initialization
+    const adapter = new FileAsync(`${homedir()}/.plaid/db.json`)
+    this.db = await lowDb(adapter)
+    await this.db.defaults({
+      accounts: []
+    }).write()
   }
 }
