@@ -1,17 +1,21 @@
 "use strict";
 
-import { dbService } from "../shared/db";
-dbService.initDatabase();
+import { DbService } from "../shared/db";
 
-export const runServer = () => {
+export const runServer = (config: string | undefined) => {
   return new Promise((resolve, reject) => {
+    const dbService = new DbService(config);
+    dbService.initDatabase();
     let util = require("util");
     const open = require("open");
 
     const os = require("os");
     const dotenv = require("dotenv");
     const path = require("path");
-    const envPath = path.resolve(os.homedir(), ".plaid/.env");
+    let envPath = path.resolve(os.homedir(), ".plaid/.env");
+    if (config) {
+      envPath = path.resolve(os.homedir(), `.plaid/.${config}.env`);
+    }
     dotenv.config({ path: envPath });
 
     let envvar = require("envvar");

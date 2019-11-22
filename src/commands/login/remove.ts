@@ -1,14 +1,16 @@
 import { flags, Command } from "@oclif/command";
-import { dbService } from "../../shared/db";
+import { DbService } from "../../shared/db";
 import cli from "cli-ux";
 import * as pluralize from "pluralize";
+import { BaseCommand } from "../../shared/base";
 
-export default class RemoveLogin extends Command {
+export default class RemoveLogin extends BaseCommand {
   static description = "remove a login from local storage";
 
   static examples = ["$ plaid-cli login:delete [id]"];
 
   static flags = {
+    ...BaseCommand.flags,
     help: flags.help({ char: "h" })
   };
 
@@ -20,7 +22,10 @@ export default class RemoveLogin extends Command {
 
   async run() {
     try {
+      const { flags } = this.parse(RemoveLogin);
+      const dbService = new DbService(flags.config);
       await dbService.initDatabase();
+
       const { args } = this.parse(RemoveLogin);
       const query = { id: { $contains: args.id } };
       const accounts = dbService.accounts.find(query);

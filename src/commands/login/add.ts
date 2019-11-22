@@ -1,6 +1,7 @@
 import { Command, flags } from "@oclif/command";
 
 import { runServer } from "../../server";
+import { BaseCommand } from "../../shared/base";
 
 export default class AddLogin extends Command {
   static description =
@@ -9,12 +10,14 @@ export default class AddLogin extends Command {
   static examples = ["$ plaid-cli login:add"];
 
   static flags = {
+    ...BaseCommand.flags,
     help: flags.help({ char: "h" })
   };
 
   async run() {
     try {
-      await runServer();
+      const { flags } = this.parse(AddLogin);
+      await runServer(flags.config);
       console.log("Command done");
     } catch (e) {
       // tslint:disable-next-line:no-console

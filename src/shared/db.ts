@@ -2,12 +2,13 @@ const os = require("os");
 import { LokiFsAdapter } from "lokijs";
 import * as loki from "lokijs";
 import { threadId } from "worker_threads";
+import * as plaid from "plaid";
 
-class DbService {
+export class DbService {
   public accounts!: loki.Collection<Account>;
-  public transactions!: loki.Collection<Transaction>;
+  public transactions!: loki.Collection<plaid.Transaction>;
   private db!: loki;
-  constructor() {}
+  constructor(private config?: string) {}
 
   public async initDatabase() {
     await new Promise((resolve, rej) => {
@@ -20,16 +21,20 @@ class DbService {
 
         this.transactions = this.db.getCollection("transactions");
         if (this.transactions === null) {
-          this.db.addCollection<Transaction>("transactions", {
+          this.db.addCollection<plaid.Transaction>("transactions", {
             unique: ["transaction_id"]
           });
-          this.transactions = this.db.getCollection<Transaction>(
+          this.transactions = this.db.getCollection<plaid.Transaction>(
             "transactions"
           );
         }
         resolve();
       };
-      this.db = new loki(`${os.homedir()}/.plaid/budget.db`, {
+      let dbPath = `${os.homedir()}/.plaid/budget.db`;
+      if (this.config) {
+        dbPath = `${os.homedir()}/.plaid/budget.${this.config}.db`;
+      }
+      this.db = new loki(dbPath, {
         adapter: new LokiFsAdapter(),
         autoload: true,
         autoloadCallback: autoLoad,
@@ -51,7 +56,7 @@ class DbService {
   }
 }
 
-export const dbService = new DbService();
+// export const dbService = new DbService();
 
 interface InternalAccount {
   id: string;
@@ -76,17 +81,4 @@ export interface Account {
     request_id: string;
     status_code: number;
   };
-}
-
-export interface Transaction {
-  account_id: string;
-  amount: number;
-  category: string[];
-  category_id: string;
-  date: string;
-  iso_currency_code: string;
-  name: string;
-  pending: boolean;
-  transaction_id: string;
-  transaction_type: string;
 }

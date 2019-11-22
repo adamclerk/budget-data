@@ -1,29 +1,40 @@
 import { flags, Command } from "@oclif/command";
-import { dbService, Transaction } from "../../shared/db";
+import { DbService } from "../../shared/db";
 import * as pluralize from "pluralize";
-import { plaidService } from "../../shared/plaid";
+import { PlaidService } from "../../shared/plaid";
+import * as plaid from "plaid";
+import { BaseCommand } from "../../shared/base";
 
-export default class DownloadTransactions extends Command {
+export default class DownloadTransactions extends BaseCommand {
   static description = "download transactions for a given account";
 
   static examples = ["$ plaid-cli transactions:download"];
 
   static flags = {
+    ...BaseCommand.flags,
     help: flags.help({ char: "h" }),
     accountId: flags.string()
   };
 
   async run() {
     try {
-      const cmd = this.parse(DownloadTransactions);
+      const { flags } = this.parse(DownloadTransactions);
+      this.loadConfig(flags);
+      const dbService = new DbService(flags.config);
       await dbService.initDatabase();
-      const accounts = dbService.accounts.findOne({
-        id: { $contains: cmd.flags.accountId }
+      const plaidService = await new PlaidService(flags.config);
+
+      const account = dbService.accounts.findOne({
+        id: { $contains: flags.accountId }
       });
-      const accessToken = accounts.tokenResponse.access_token;
+      if (account === null) {
+        console.log(`Account ${flags.accountId} not found`);
+        return;
+      }
+      const accessToken = account.tokenResponse.access_token;
       let count = 50;
       let offset = 0;
-      let allTransactions: Transaction[] = [];
+      let allTransactions: plaid.Transaction[] = [];
       console.log(`First Page: Start at ${offset} retrieving ${count}`);
       let {
         total_transactions,

@@ -3,10 +3,13 @@ import { resolve } from "path";
 import { homedir } from "os";
 import { config } from "dotenv";
 import * as envvar from "envvar";
-class PlaidService {
+export class PlaidService {
   public plaidClient: Client;
-  constructor() {
-    const envPath = resolve(homedir(), ".plaid/.env");
+  constructor(c: string | undefined) {
+    let envPath = resolve(homedir(), ".plaid/.env");
+    if (c) {
+      envPath = resolve(homedir(), `.plaid/.${c}.env`);
+    }
     config({ path: envPath });
     let PLAID_CLIENT_ID = envvar.string("PLAID_CLIENT_ID");
     let PLAID_SECRET = envvar.string("PLAID_SECRET");
@@ -22,5 +25,3 @@ class PlaidService {
     );
   }
 }
-
-export const plaidService = new PlaidService();
