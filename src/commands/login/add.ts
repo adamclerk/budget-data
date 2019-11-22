@@ -1,21 +1,24 @@
-import { Command, flags } from "@oclif/command";
+import {flags} from '@oclif/command';
 
-import { runServer } from "../../server";
+import {runServer} from '../../server';
+import {BaseCommand} from '../../shared/base';
 
-export default class AddLogin extends Command {
+export default class AddLogin extends BaseCommand {
   static description =
-    "launch a webpage and server to provide login credentials";
+    'launch a webpage and server to provide login credentials';
 
-  static examples = ["$ plaid-cli login:add"];
+  static examples = ['$ plaid-cli login:add'];
 
   static flags = {
-    help: flags.help({ char: "h" })
+    ...BaseCommand.flags,
+    help: flags.help({char: 'h'})
   };
 
   async run() {
     try {
-      await runServer();
-      console.log("Command done");
+      const {flags} = this.parse(AddLogin);
+      await runServer(flags.config);
+      console.log('Command done');
     } catch (e) {
       // tslint:disable-next-line:no-console
       console.log(e);

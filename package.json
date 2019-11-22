@@ -15,10 +15,12 @@
     "cli-ux": "^5.3.3",
     "dotenv": "^8.2.0",
     "ejs": "2.5.x",
-    "envvar": "1.1.x",
+    "envvar": "^2.0.x",
     "express": "4.16.x",
     "glob": "^7.1.6",
     "glob-promise": "^3.4.0",
+    "inversify": "^5.0.1",
+    "inversify-inject-decorators": "^3.1.0",
     "lokijs": "^1.5.8",
     "lowdb": "^1.0.0",
     "mkdirp": "^0.5.1",
@@ -26,6 +28,7 @@
     "open": "^7.0.0",
     "plaid": "4.x.x",
     "pluralize": "^8.0.0",
+    "reflect-metadata": "^0.1.13",
     "tslib": "^1"
   },
   "devDependencies": {

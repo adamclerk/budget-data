@@ -1,35 +1,40 @@
-const os = require("os");
-import { LokiFsAdapter } from "lokijs";
-import * as loki from "lokijs";
-import { threadId } from "worker_threads";
+const os = require('os');
+import {LokiFsAdapter} from 'lokijs';
+// tslint:disable-next-line:no-duplicate-imports
+import * as loki from 'lokijs';
+import * as plaid from 'plaid';
 
-class DbService {
+export class DbService {
   public accounts!: loki.Collection<Account>;
-  public transactions!: loki.Collection<Transaction>;
+  public transactions!: loki.Collection<plaid.Transaction>;
   private db!: loki;
-  constructor() {}
+  constructor(private config?: string) {}
 
-  public async initDatabase() {
-    await new Promise((resolve, rej) => {
+  public async init() {
+    await new Promise(resolve => {
       const autoLoad = () => {
-        this.accounts = this.db.getCollection("accounts");
+        this.accounts = this.db.getCollection('accounts');
         if (this.accounts === null) {
-          this.db.addCollection<Account>("accounts");
-          this.accounts = this.db.getCollection<Account>("accounts");
+          this.db.addCollection<Account>('accounts');
+          this.accounts = this.db.getCollection<Account>('accounts');
         }
 
-        this.transactions = this.db.getCollection("transactions");
+        this.transactions = this.db.getCollection('transactions');
         if (this.transactions === null) {
-          this.db.addCollection<Transaction>("transactions", {
-            unique: ["transaction_id"]
+          this.db.addCollection<plaid.Transaction>('transactions', {
+            unique: ['transaction_id']
           });
-          this.transactions = this.db.getCollection<Transaction>(
-            "transactions"
+          this.transactions = this.db.getCollection<plaid.Transaction>(
+            'transactions'
           );
         }
         resolve();
       };
-      this.db = new loki(`${os.homedir()}/.plaid/budget.db`, {
+      let dbPath = `${os.homedir()}/.plaid/budget.db`;
+      if (this.config) {
+        dbPath = `${os.homedir()}/.plaid/budget.${this.config}.db`;
+      }
+      this.db = new loki(dbPath, {
         adapter: new LokiFsAdapter(),
         autoload: true,
         autoloadCallback: autoLoad,
@@ -41,8 +46,7 @@ class DbService {
   }
 
   public async flush(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      // this.db.sa;
+    return new Promise<boolean>(resolve => {
       this.db.saveDatabase(err => {
         const retVal = err === null ? true : false;
         resolve(retVal);
@@ -51,7 +55,7 @@ class DbService {
   }
 }
 
-export const dbService = new DbService();
+// export const dbService = new DbService();
 
 interface InternalAccount {
   id: string;
@@ -76,17 +80,4 @@ export interface Account {
     request_id: string;
     status_code: number;
   };
-}
-
-export interface Transaction {
-  account_id: string;
-  amount: number;
-  category: string[];
-  category_id: string;
-  date: string;
-  iso_currency_code: string;
-  name: string;
-  pending: boolean;
-  transaction_id: string;
-  transaction_type: string;
 }

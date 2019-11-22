@@ -1,37 +1,44 @@
-import { flags, Command } from "@oclif/command";
-import { dbService, Transaction } from "../../shared/db";
-import * as pluralize from "pluralize";
-import { plaidService } from "../../shared/plaid";
+import {flags} from '@oclif/command';
+import * as plaid from 'plaid';
+import * as pluralize from 'pluralize';
 
-export default class DownloadTransactions extends Command {
-  static description = "download transactions for a given account";
+import {BaseCommand} from '../../shared/base';
+// import {PlaidService} from '../../shared/plaid';
 
-  static examples = ["$ plaid-cli transactions:download"];
+export default class DownloadTransactions extends BaseCommand {
+  static description = 'download transactions for a given account';
+
+  static examples = ['$ plaid-cli transactions:download'];
 
   static flags = {
-    help: flags.help({ char: "h" }),
+    ...BaseCommand.flags,
+    help: flags.help({char: 'h'}),
     accountId: flags.string()
   };
 
   async run() {
     try {
-      const cmd = this.parse(DownloadTransactions);
-      await dbService.initDatabase();
-      const accounts = dbService.accounts.findOne({
-        id: { $contains: cmd.flags.accountId }
+      const {flags} = this.parse(DownloadTransactions);
+
+      const account = this.dbService.accounts.findOne({
+        id: {$contains: flags.accountId}
       });
-      const accessToken = accounts.tokenResponse.access_token;
+      if (account === null) {
+        console.log(`Account ${flags.accountId} not found`);
+        return;
+      }
+      const accessToken = account.tokenResponse.access_token;
       let count = 50;
       let offset = 0;
-      let allTransactions: Transaction[] = [];
+      let allTransactions: plaid.Transaction[] = [];
       console.log(`First Page: Start at ${offset} retrieving ${count}`);
       let {
         total_transactions,
         transactions
-      } = await plaidService.plaidClient.getTransactions(
+      } = await this.plaidService.plaidClient.getTransactions(
         accessToken,
-        "2018-01-01",
-        "2019-01-30",
+        '2018-01-01',
+        '2019-01-30',
         {
           count,
           offset
@@ -41,10 +48,10 @@ export default class DownloadTransactions extends Command {
       while (allTransactions.length < total_transactions) {
         offset = allTransactions.length;
         console.log(`Next Page: Start at ${offset} retrieving ${count}`);
-        let response = await plaidService.plaidClient.getTransactions(
+        let response = await this.plaidService.plaidClient.getTransactions(
           accessToken,
-          "2018-01-01",
-          "2019-01-30",
+          '2018-01-01',
+          '2019-01-30',
           {
             count,
             offset
@@ -55,20 +62,17 @@ export default class DownloadTransactions extends Command {
       }
       allTransactions.forEach(t => {
         try {
-          dbService.transactions.insert(t);
+          this.dbService.transactions.insert(t);
         } catch (e) {
           let err: Error = e;
-          if (err.message.indexOf("Duplicate key") === -1) {
+          if (err.message.indexOf('Duplicate key') === -1) {
             console.log(e);
           }
         }
       });
 
-      await dbService.flush();
-      console.log(
-        `Downloaded ${pluralize("transaction", allTransactions.length, true)}`
-      );
-      // console.log(transactions.transactions);
+      await this.dbService.flush();
+      console.log(`Downloaded ${pluralize('transaction', allTransactions.length, true)}`);
     } catch (e) {
       console.log(e);
     } finally {
