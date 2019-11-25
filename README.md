@@ -31,6 +31,9 @@ USAGE
 * [`plaid-cli help [COMMAND]`](#plaid-cli-help-command)
 * [`plaid-cli login:add`](#plaid-cli-loginadd)
 * [`plaid-cli login:list`](#plaid-cli-loginlist)
+* [`plaid-cli login:remove [ID]`](#plaid-cli-loginremove-id)
+* [`plaid-cli stats`](#plaid-cli-stats)
+* [`plaid-cli transactions:download`](#plaid-cli-transactionsdownload)
 
 ## `plaid-cli help [COMMAND]`
 
@@ -58,7 +61,14 @@ USAGE
   $ plaid-cli login:add
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
+                               will load `~/.budget-data/.{value}.config`
+
+  -h, --help                   show CLI help
+
+  -p, --configPath=configPath  path to put all data. this defaults to ~/.budget-data/*
+
+  -v, --verbose
 
 EXAMPLE
   $ plaid-cli login:add
@@ -75,11 +85,94 @@ USAGE
   $ plaid-cli login:list
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
+                               will load `~/.budget-data/.{value}.config`
+
+  -d, --details
+
+  -h, --help                   show CLI help
+
+  -p, --configPath=configPath  path to put all data. this defaults to ~/.budget-data/*
+
+  -v, --verbose
 
 EXAMPLE
   $ plaid-cli login:list
 ```
 
 _See code: [src/commands/login/list.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/list.ts)_
+
+## `plaid-cli login:remove [ID]`
+
+remove a login from local storage
+
+```
+USAGE
+  $ plaid-cli login:remove [ID]
+
+OPTIONS
+  -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
+                               will load `~/.budget-data/.{value}.config`
+
+  -h, --help                   show CLI help
+
+  -p, --configPath=configPath  path to put all data. this defaults to ~/.budget-data/*
+
+  -v, --verbose
+
+EXAMPLE
+  $ plaid-cli login:delete [id]
+```
+
+_See code: [src/commands/login/remove.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/remove.ts)_
+
+## `plaid-cli stats`
+
+list all of the logins currently available
+
+```
+USAGE
+  $ plaid-cli stats
+
+OPTIONS
+  -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
+                               will load `~/.budget-data/.{value}.config`
+
+  -h, --help                   show CLI help
+
+  -p, --configPath=configPath  path to put all data. this defaults to ~/.budget-data/*
+
+  -v, --verbose
+
+EXAMPLE
+  $ plaid-cli login:list
+```
+
+_See code: [src/commands/stats/index.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/stats/index.ts)_
+
+## `plaid-cli transactions:download`
+
+download transactions for a given account
+
+```
+USAGE
+  $ plaid-cli transactions:download
+
+OPTIONS
+  -a, --accountId=accountId    (required) this is the accountId you want to download from
+
+  -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
+                               will load `~/.budget-data/.{value}.config`
+
+  -h, --help                   show CLI help
+
+  -p, --configPath=configPath  path to put all data. this defaults to ~/.budget-data/*
+
+  -v, --verbose
+
+EXAMPLE
+  $ plaid-cli transactions:download
+```
+
+_See code: [src/commands/transactions/download.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/transactions/download.ts)_
 <!-- commandsstop -->
