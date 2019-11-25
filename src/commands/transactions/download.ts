@@ -7,7 +7,7 @@ import BaseCommand from '../../shared/base';
 export default class DownloadTransactions extends BaseCommand {
   static description = 'download transactions for a given account';
 
-  static examples = ['$ plaid-cli transactions:download'];
+  static examples = ['$ budget-data transactions:download'];
 
   static flags = {
     ...BaseCommand.flags,

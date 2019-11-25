@@ -7,7 +7,7 @@ export default class AddLogin extends BaseCommand {
   static description =
     'launch a webpage and server to provide login credentials';
 
-  static examples = ['$ plaid-cli login:add'];
+  static examples = ['$ budget-data login:add'];
 
   static flags = {
     ...BaseCommand.flags,

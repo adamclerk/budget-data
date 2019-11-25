@@ -6,7 +6,7 @@ import BaseCommand from '../../shared/base';
 export default class RemoveLogin extends BaseCommand {
   static description = 'remove a login from local storage';
 
-  static examples = ['$ plaid-cli login:delete [id]'];
+  static examples = ['$ budget-data login:delete [id]'];
 
   static flags = {
     ...BaseCommand.flags,

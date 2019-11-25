@@ -5,7 +5,7 @@ import BaseCommand from '../../shared/base';
 export default class ListLogin extends BaseCommand {
   static description = 'list all of the logins currently available';
 
-  static examples = ['$ plaid-cli login:list'];
+  static examples = ['$ budget-data login:list'];
 
   static flags = {
     ...BaseCommand.flags,

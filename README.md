@@ -71,7 +71,7 @@ OPTIONS
   -v, --verbose
 
 EXAMPLE
-  $ plaid-cli login:add
+  $ budget-data login:add
 ```
 
 _See code: [src/commands/login/add.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/add.ts)_
@@ -97,7 +97,7 @@ OPTIONS
   -v, --verbose
 
 EXAMPLE
-  $ plaid-cli login:list
+  $ budget-data login:list
 ```
 
 _See code: [src/commands/login/list.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/list.ts)_
@@ -121,7 +121,7 @@ OPTIONS
   -v, --verbose
 
 EXAMPLE
-  $ plaid-cli login:delete [id]
+  $ budget-data login:delete [id]
 ```
 
 _See code: [src/commands/login/remove.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/remove.ts)_
@@ -145,7 +145,7 @@ OPTIONS
   -v, --verbose
 
 EXAMPLE
-  $ plaid-cli login:list
+  $ budget-data login:list
 ```
 
 _See code: [src/commands/stats/index.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/stats/index.ts)_
@@ -171,7 +171,7 @@ OPTIONS
   -v, --verbose
 
 EXAMPLE
-  $ plaid-cli transactions:download
+  $ budget-data transactions:download
 ```
 
 _See code: [src/commands/transactions/download.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/transactions/download.ts)_
