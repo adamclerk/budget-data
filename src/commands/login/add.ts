@@ -1,7 +1,7 @@
 import {flags} from '@oclif/command';
 
 import {runServer} from '../../server';
-import {BaseCommand} from '../../shared/base';
+import BaseCommand from '../../shared/base';
 
 export default class AddLogin extends BaseCommand {
   static description =
@@ -17,13 +17,13 @@ export default class AddLogin extends BaseCommand {
   async run() {
     try {
       const {flags} = this.parse(AddLogin);
-      await runServer(flags.config);
+      await runServer(flags);
       console.log('Command done');
     } catch (e) {
       // tslint:disable-next-line:no-console
       console.log(e);
     } finally {
-      process.exit();
+      // process.exit();
     }
   }
 }

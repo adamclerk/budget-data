@@ -4,11 +4,13 @@ import {LokiFsAdapter} from 'lokijs';
 import * as loki from 'lokijs';
 import * as plaid from 'plaid';
 
+import {IConfigFlags} from './base';
+
 export class DbService {
   public accounts!: loki.Collection<Account>;
   public transactions!: loki.Collection<plaid.Transaction>;
   private db!: loki;
-  constructor(private config?: string) {}
+  constructor(private config: IConfigFlags) { }
 
   public async init() {
     await new Promise(resolve => {
@@ -30,10 +32,14 @@ export class DbService {
         }
         resolve();
       };
-      let dbPath = `${os.homedir()}/.plaid/budget.db`;
-      if (this.config) {
-        dbPath = `${os.homedir()}/.plaid/budget.${this.config}.db`;
+      const configPath = this.config.configPath || `${os.homedir()}/.budget-data`;
+      const configName = this.config.configName || 'default';
+      let dbPath = `${configPath}/budget.${configName}`;
+
+      if (this.config.verbose) {
+        console.log(`dbPath: ${dbPath}`);
       }
+
       this.db = new loki(dbPath, {
         adapter: new LokiFsAdapter(),
         autoload: true,

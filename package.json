@@ -10,6 +10,7 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
+    "@oclif/parser": "^3.8.4",
     "@oclif/plugin-help": "^2",
     "body-parser": "1.18.x",
     "cli-ux": "^5.3.3",
@@ -37,6 +38,7 @@
     "@oclif/tslint": "^3",
     "@types/chai": "^4",
     "@types/glob": "^7.1.1",
+    "@types/jest": "^24.0.23",
     "@types/lokijs": "^1.5.2",
     "@types/lowdb": "1.0.9",
     "@types/mocha": "^5",
@@ -44,8 +46,11 @@
     "@types/pluralize": "0.0.29",
     "chai": "^4",
     "globby": "^10",
+    "jest": "^24.9.0",
     "mocha": "^5",
     "nyc": "^14",
+    "sinon": "^7.5.0",
+    "ts-jest": "^24.2.0",
     "ts-node": "^8",
     "tslint": "^5",
     "typescript": "^3.3"

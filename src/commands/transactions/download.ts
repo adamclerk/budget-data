@@ -2,8 +2,7 @@ import {flags} from '@oclif/command';
 import * as plaid from 'plaid';
 import * as pluralize from 'pluralize';
 
-import {BaseCommand} from '../../shared/base';
-// import {PlaidService} from '../../shared/plaid';
+import BaseCommand from '../../shared/base';
 
 export default class DownloadTransactions extends BaseCommand {
   static description = 'download transactions for a given account';
@@ -13,8 +12,13 @@ export default class DownloadTransactions extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     help: flags.help({char: 'h'}),
-    accountId: flags.string()
+    accountId: flags.string({
+      char: 'a',
+      description: 'this is the accountId you want to download from',
+      required: true
+    }),
   };
+  static strict = false;
 
   async run() {
     try {
@@ -24,7 +28,7 @@ export default class DownloadTransactions extends BaseCommand {
         id: {$contains: flags.accountId}
       });
       if (account === null) {
-        console.log(`Account ${flags.accountId} not found`);
+        console.error(`Account ${flags.accountId} not found`);
         return;
       }
       const accessToken = account.tokenResponse.access_token;
@@ -44,6 +48,7 @@ export default class DownloadTransactions extends BaseCommand {
           offset
         }
       );
+      // console.warn(`transactions ${transactions}`);
       allTransactions.push(...transactions);
       while (allTransactions.length < total_transactions) {
         offset = allTransactions.length;
@@ -76,7 +81,7 @@ export default class DownloadTransactions extends BaseCommand {
     } catch (e) {
       console.log(e);
     } finally {
-      process.exit();
+      // process.exit(0);
     }
   }
 }

@@ -2,7 +2,7 @@ import {flags} from '@oclif/command';
 import cli from 'cli-ux';
 import * as pluralize from 'pluralize';
 
-import {BaseCommand} from '../../shared/base';
+import BaseCommand from '../../shared/base';
 
 export default class RemoveLogin extends BaseCommand {
   static description = 'remove a login from local storage';

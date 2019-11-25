@@ -1,21 +1,21 @@
 'use strict';
 
+import {IConfigFlags} from '../shared/base';
 import {DbService} from '../shared/db';
 
-export const runServer = (config: string | undefined) => {
-  return new Promise(resolve => {
+export const runServer = (config: IConfigFlags) => {
+  return new Promise(async resolve => {
     const dbService = new DbService(config);
-    dbService.init();
+    await dbService.init();
     let util = require('util');
     const open = require('open');
 
     const os = require('os');
     const dotenv = require('dotenv');
     const path = require('path');
-    let envPath = path.resolve(os.homedir(), '.plaid/.env');
-    if (config) {
-      envPath = path.resolve(os.homedir(), `.plaid/.${config}.env`);
-    }
+    const configPath = config.configPath || path.resolve(os.homedir(), '.budget-data');
+    const configName = config.configName || 'default';
+    const envPath = `${configPath}/.env.${configName}`;
     dotenv.config({path: envPath});
 
     let envvar = require('envvar');
@@ -86,13 +86,13 @@ export const runServer = (config: string | undefined) => {
     // Exchange token flow - exchange a Link public_token for
     // an API access_token
     // https://plaid.com/docs/#exchange-token-flow
-    app.post('/get_access_token', function (request: any, response: any) {
+    app.post('/get_access_token', (request: any, response: any) => {
       PUBLIC_TOKEN = request.body.public_token;
       let payload = JSON.parse(request.body.payload);
-      client.exchangePublicToken(PUBLIC_TOKEN, function (
+      client.exchangePublicToken(PUBLIC_TOKEN, async (
         error: any,
         tokenResponse: any
-      ) {
+      ) => {
         if (error !== null) {
           prettyPrintResponse(error);
           return response.json({
@@ -102,6 +102,8 @@ export const runServer = (config: string | undefined) => {
         ACCESS_TOKEN = tokenResponse.access_token;
         ITEM_ID = tokenResponse.item_id;
         dbService.accounts.insert({id: ITEM_ID, payload, tokenResponse});
+        console.log(dbService);
+        await dbService.flush();
 
         response.json({
           access_token: ACCESS_TOKEN,

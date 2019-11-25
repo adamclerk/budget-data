@@ -1,6 +1,6 @@
 import {flags} from '@oclif/command';
 
-import {BaseCommand} from '../../shared/base';
+import BaseCommand from '../../shared/base';
 
 export default class ListLogin extends BaseCommand {
   static description = 'list all of the logins currently available';
