@@ -6,9 +6,18 @@
     "outDir": "lib",
     "rootDir": "src",
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "inlineSourceMap": true,
+    "noUnusedLocals": true,
+    "types": [
+      "jest"
+    ]
   },
   "include": [
-    "src/**/*", "test/download.test.ts"
+    "src/**/*",
+    "test/download.test.ts"
+  ],
+  "exclude": [
+    "node_modules/**"
   ]
 }

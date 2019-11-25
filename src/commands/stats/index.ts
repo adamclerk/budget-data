@@ -1,4 +1,4 @@
-import {flags} from '@oclif/command';
+import { flags } from '@oclif/command';
 import * as pluralize from 'pluralize';
 
 import BaseCommand from '../../shared/base';
@@ -10,7 +10,7 @@ export default class Stats extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    help: flags.help({char: 'h'})
+    help: flags.help({ char: 'h' })
   };
 
   async run() {
@@ -22,8 +22,6 @@ export default class Stats extends BaseCommand {
       console.log(` ${pluralize('transaction', transactions.length, true)}`);
     } catch (e) {
       console.log(e);
-    } finally {
-      process.exit();
     }
   }
 }

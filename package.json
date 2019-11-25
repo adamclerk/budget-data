@@ -41,13 +41,11 @@
     "@types/jest": "^24.0.23",
     "@types/lokijs": "^1.5.2",
     "@types/lowdb": "1.0.9",
-    "@types/mocha": "^5",
     "@types/node": "^10",
     "@types/pluralize": "0.0.29",
     "chai": "^4",
     "globby": "^10",
     "jest": "^24.9.0",
-    "mocha": "^5",
     "nyc": "^14",
     "sinon": "^7.5.0",
     "ts-jest": "^24.2.0",
@@ -82,7 +80,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p test -t stylish",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "test": "jest",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"

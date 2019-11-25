@@ -1,4 +1,4 @@
-import {flags} from '@oclif/command';
+import { flags } from '@oclif/command';
 import * as plaid from 'plaid';
 import * as pluralize from 'pluralize';
 
@@ -11,21 +11,21 @@ export default class DownloadTransactions extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
     accountId: flags.string({
       char: 'a',
       description: 'this is the accountId you want to download from',
       required: true
-    }),
+    })
   };
   static strict = false;
 
   async run() {
     try {
-      const {flags} = this.parse(DownloadTransactions);
+      const { flags } = this.parse(DownloadTransactions);
 
       const account = this.dbService.accounts.findOne({
-        id: {$contains: flags.accountId}
+        id: { $contains: flags.accountId }
       });
       if (account === null) {
         console.error(`Account ${flags.accountId} not found`);
@@ -77,11 +77,11 @@ export default class DownloadTransactions extends BaseCommand {
       });
 
       await this.dbService.flush();
-      console.log(`Downloaded ${pluralize('transaction', allTransactions.length, true)}`);
+      console.log(
+        `Downloaded ${pluralize('transaction', allTransactions.length, true)}`
+      );
     } catch (e) {
       console.log(e);
-    } finally {
-      // process.exit(0);
     }
   }
 }

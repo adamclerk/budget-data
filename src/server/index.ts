@@ -1,7 +1,7 @@
 'use strict';
 
-import {IConfigFlags} from '../shared/base';
-import {DbService} from '../shared/db';
+import { IConfigFlags } from '../shared/base';
+import { DbService } from '../shared/db';
 
 export const runServer = (config: IConfigFlags) => {
   return new Promise(async resolve => {
@@ -16,7 +16,7 @@ export const runServer = (config: IConfigFlags) => {
     const configPath = config.configPath || path.resolve(os.homedir(), '.budget-data');
     const configName = config.configName || 'default';
     const envPath = `${configPath}/.env.${configName}`;
-    dotenv.config({path: envPath});
+    dotenv.config({ path: envPath });
 
     let envvar = require('envvar');
     let express = require('express');
@@ -58,7 +58,7 @@ export const runServer = (config: IConfigFlags) => {
       PLAID_SECRET,
       PLAID_PUBLIC_KEY,
       plaid.environments[PLAID_ENV],
-      {version: '2019-05-29', clientApp: 'Plaid Quickstart'}
+      { version: '2019-05-29', clientApp: 'Plaid Quickstart' }
     );
 
     let app = express();
@@ -101,8 +101,7 @@ export const runServer = (config: IConfigFlags) => {
         }
         ACCESS_TOKEN = tokenResponse.access_token;
         ITEM_ID = tokenResponse.item_id;
-        dbService.accounts.insert({id: ITEM_ID, payload, tokenResponse});
-        console.log(dbService);
+        dbService.accounts.insert({ id: ITEM_ID, payload, tokenResponse });
         await dbService.flush();
 
         response.json({
@@ -137,7 +136,7 @@ export const runServer = (config: IConfigFlags) => {
             });
           } else {
             prettyPrintResponse(transactionsResponse);
-            response.json({error: null, transactions: transactionsResponse});
+            response.json({ error: null, transactions: transactionsResponse });
           }
         }
       );
@@ -157,13 +156,13 @@ export const runServer = (config: IConfigFlags) => {
           });
         }
         prettyPrintResponse(identityResponse);
-        response.json({error: null, identity: identityResponse});
+        response.json({ error: null, identity: identityResponse });
       });
     });
 
     let prettyPrintResponse = (response: any) => {
       // tslint:disable-next-line:no-console
-      console.log(util.inspect(response, {colors: true, depth: 4}));
+      console.log(util.inspect(response, { colors: true, depth: 4 }));
     };
 
     app.post('/set_access_token', function (

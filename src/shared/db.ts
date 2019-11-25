@@ -1,10 +1,10 @@
 const os = require('os');
-import {LokiFsAdapter} from 'lokijs';
+import { LokiFsAdapter } from 'lokijs';
 // tslint:disable-next-line:no-duplicate-imports
 import * as loki from 'lokijs';
 import * as plaid from 'plaid';
 
-import {IConfigFlags} from './base';
+import { IConfigFlags } from './base';
 
 export class DbService {
   public accounts!: loki.Collection<Account>;
@@ -32,12 +32,13 @@ export class DbService {
         }
         resolve();
       };
-      const configPath = this.config.configPath || `${os.homedir()}/.budget-data`;
+      const configPath =
+        this.config.configPath || `${os.homedir()}/.budget-data`;
       const configName = this.config.configName || 'default';
       let dbPath = `${configPath}/budget.${configName}`;
 
       if (this.config.verbose) {
-        console.log(`dbPath: ${dbPath}`);
+        console.info(`dbPath: ${dbPath}`);
       }
 
       this.db = new loki(dbPath, {

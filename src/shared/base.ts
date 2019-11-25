@@ -1,11 +1,11 @@
-import Command, {flags} from '@oclif/command';
-import {Input} from '@oclif/parser';
+import Command, { flags } from '@oclif/command';
+import { Input } from '@oclif/parser';
 import * as dotenv from 'dotenv';
-import {homedir} from 'os';
-import {resolve} from 'path';
+import { homedir } from 'os';
+import { resolve } from 'path';
 
-import {DbService} from './db';
-import {PlaidService} from './plaid';
+import { DbService } from './db';
+import { PlaidService } from './plaid';
 
 export default abstract class extends Command {
   static flags = {
@@ -16,11 +16,12 @@ export default abstract class extends Command {
       char: 'c',
       description:
         'config to load. default will load `~/.budget-data/.default.config` provide a value it will load `~/.budget-data/.{value}.config`',
-      env: 'BUDGET_DATA_CONFIG',
+      env: 'BUDGET_DATA_CONFIG_NAME'
     }),
     configPath: flags.string({
       char: 'p',
-      description: 'path to put all data. this defaults to ~/.budget-data/*'
+      description: 'path to put all data. this defaults to ~/.budget-data/*',
+      env: 'BUDGET_DATA_CONFIG_PATH'
     })
     // ,
     // json: flags.boolean({
@@ -35,9 +36,9 @@ export default abstract class extends Command {
   protected plaidService!: PlaidService;
 
   async init() {
-    const {flags} = this.parse(this.constructor as Input<any>);
+    const { flags } = this.parse(this.constructor as Input<any>);
     if (flags.verbose) {
-      console.log(flags);
+      console.info(flags);
     }
     await this.loadConfig(flags);
     // this.flags = flags;
@@ -52,9 +53,9 @@ export default abstract class extends Command {
     const configPath = flags.configPath || resolve(homedir(), '.budget-data');
     let envPath = `${configPath}/.env.${configName}`;
     if (flags.verbose) {
-      console.log(`envPath: ${envPath}`);
+      console.info(`envPath: ${envPath}`);
     }
-    dotenv.config({path: envPath});
+    dotenv.config({ path: envPath });
   }
 }
 

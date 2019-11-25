@@ -4,6 +4,8 @@
     "no-console": false,
     "semicolon": true,
     "strict-type-predicates": false,
-    "prefer-readonly": false
+    "prefer-readonly": false,
+    "object-curly-spacing": false,
+    "no-unused-expression": true
   }
 }

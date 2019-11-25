@@ -1,6 +1,6 @@
-import {flags} from '@oclif/command';
+import { flags } from '@oclif/command';
 
-import {runServer} from '../../server';
+import { runServer } from '../../server';
 import BaseCommand from '../../shared/base';
 
 export default class AddLogin extends BaseCommand {
@@ -11,19 +11,17 @@ export default class AddLogin extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    help: flags.help({char: 'h'})
+    help: flags.help({ char: 'h' })
   };
 
   async run() {
     try {
-      const {flags} = this.parse(AddLogin);
+      const { flags } = this.parse(AddLogin);
       await runServer(flags);
       console.log('Command done');
     } catch (e) {
       // tslint:disable-next-line:no-console
       console.log(e);
-    } finally {
-      // process.exit();
     }
   }
 }

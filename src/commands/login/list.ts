@@ -1,4 +1,4 @@
-import {flags} from '@oclif/command';
+import { flags } from '@oclif/command';
 
 import BaseCommand from '../../shared/base';
 
@@ -9,13 +9,13 @@ export default class ListLogin extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    help: flags.help({char: 'h'}),
-    details: flags.boolean({char: 'd'})
+    help: flags.help({ char: 'h' }),
+    details: flags.boolean({ char: 'd' })
   };
 
   async run() {
     try {
-      const {flags} = this.parse(ListLogin);
+      const { flags } = this.parse(ListLogin);
       const accounts = this.dbService.accounts.find();
       accounts.forEach(x => {
         console.log(`Institution: ${x.payload.institution.name}`);
@@ -32,8 +32,6 @@ export default class ListLogin extends BaseCommand {
       });
     } catch (e) {
       console.log(e);
-    } finally {
-      process.exit();
     }
   }
 }
