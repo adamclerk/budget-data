@@ -1,12 +1,12 @@
-plaid-cli
+budget-data
 =========
 
 get data for personal budgeting
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/plaid-cli.svg)](https://npmjs.org/package/plaid-cli)
-[![Downloads/week](https://img.shields.io/npm/dw/plaid-cli.svg)](https://npmjs.org/package/plaid-cli)
-[![License](https://img.shields.io/npm/l/plaid-cli.svg)](https://github.com/adamclerk/plaid-cli/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/budget-data.svg)](https://npmjs.org/package/budget-data)
+[![Downloads/week](https://img.shields.io/npm/dw/budget-data.svg)](https://npmjs.org/package/budget-data)
+[![License](https://img.shields.io/npm/l/budget-data.svg)](https://github.com/adamclerk/budget-data/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -15,33 +15,33 @@ get data for personal budgeting
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g plaid-cli
-$ plaid-cli COMMAND
+$ npm install -g budget-data
+$ budget-data COMMAND
 running command...
-$ plaid-cli (-v|--version|version)
-plaid-cli/0.0.0 darwin-x64 node-v10.16.3
-$ plaid-cli --help [COMMAND]
+$ budget-data (-v|--version|version)
+budget-data/0.0.0 darwin-x64 node-v10.16.3
+$ budget-data --help [COMMAND]
 USAGE
-  $ plaid-cli COMMAND
+  $ budget-data COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`plaid-cli help [COMMAND]`](#plaid-cli-help-command)
-* [`plaid-cli login:add`](#plaid-cli-loginadd)
-* [`plaid-cli login:list`](#plaid-cli-loginlist)
-* [`plaid-cli login:remove [ID]`](#plaid-cli-loginremove-id)
-* [`plaid-cli stats`](#plaid-cli-stats)
-* [`plaid-cli transactions:download`](#plaid-cli-transactionsdownload)
+* [`budget-data help [COMMAND]`](#budget-data-help-command)
+* [`budget-data login:add`](#budget-data-loginadd)
+* [`budget-data login:list`](#budget-data-loginlist)
+* [`budget-data login:remove [ID]`](#budget-data-loginremove-id)
+* [`budget-data stats`](#budget-data-stats)
+* [`budget-data transactions:download`](#budget-data-transactionsdownload)
 
-## `plaid-cli help [COMMAND]`
+## `budget-data help [COMMAND]`
 
-display help for plaid-cli
+display help for budget-data
 
 ```
 USAGE
-  $ plaid-cli help [COMMAND]
+  $ budget-data help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -52,13 +52,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
-## `plaid-cli login:add`
+## `budget-data login:add`
 
 launch a webpage and server to provide login credentials
 
 ```
 USAGE
-  $ plaid-cli login:add
+  $ budget-data login:add
 
 OPTIONS
   -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
@@ -74,15 +74,15 @@ EXAMPLE
   $ budget-data login:add
 ```
 
-_See code: [src/commands/login/add.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/add.ts)_
+_See code: [src/commands/login/add.ts](https://github.com/adamclerk/budget-data/blob/v0.0.0/src/commands/login/add.ts)_
 
-## `plaid-cli login:list`
+## `budget-data login:list`
 
 list all of the logins currently available
 
 ```
 USAGE
-  $ plaid-cli login:list
+  $ budget-data login:list
 
 OPTIONS
   -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
@@ -100,15 +100,15 @@ EXAMPLE
   $ budget-data login:list
 ```
 
-_See code: [src/commands/login/list.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/list.ts)_
+_See code: [src/commands/login/list.ts](https://github.com/adamclerk/budget-data/blob/v0.0.0/src/commands/login/list.ts)_
 
-## `plaid-cli login:remove [ID]`
+## `budget-data login:remove [ID]`
 
 remove a login from local storage
 
 ```
 USAGE
-  $ plaid-cli login:remove [ID]
+  $ budget-data login:remove [ID]
 
 OPTIONS
   -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
@@ -124,15 +124,15 @@ EXAMPLE
   $ budget-data login:delete [id]
 ```
 
-_See code: [src/commands/login/remove.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/login/remove.ts)_
+_See code: [src/commands/login/remove.ts](https://github.com/adamclerk/budget-data/blob/v0.0.0/src/commands/login/remove.ts)_
 
-## `plaid-cli stats`
+## `budget-data stats`
 
 list all of the logins currently available
 
 ```
 USAGE
-  $ plaid-cli stats
+  $ budget-data stats
 
 OPTIONS
   -c, --configName=configName  config to load. default will load `~/.budget-data/.default.config` provide a value it
@@ -148,15 +148,15 @@ EXAMPLE
   $ budget-data login:list
 ```
 
-_See code: [src/commands/stats/index.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/stats/index.ts)_
+_See code: [src/commands/stats/index.ts](https://github.com/adamclerk/budget-data/blob/v0.0.0/src/commands/stats/index.ts)_
 
-## `plaid-cli transactions:download`
+## `budget-data transactions:download`
 
 download transactions for a given account
 
 ```
 USAGE
-  $ plaid-cli transactions:download
+  $ budget-data transactions:download
 
 OPTIONS
   -a, --accountId=accountId    (required) this is the accountId you want to download from
@@ -174,5 +174,5 @@ EXAMPLE
   $ budget-data transactions:download
 ```
 
-_See code: [src/commands/transactions/download.ts](https://github.com/adamclerk/plaid-cli/blob/v0.0.0/src/commands/transactions/download.ts)_
+_See code: [src/commands/transactions/download.ts](https://github.com/adamclerk/budget-data/blob/v0.0.0/src/commands/transactions/download.ts)_
 <!-- commandsstop -->

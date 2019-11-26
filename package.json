@@ -1,12 +1,12 @@
 {
-  "name": "plaid-cli",
+  "name": "budget-data",
   "description": "get data for personal budgeting",
   "version": "0.0.0",
   "author": "Adam Clark",
   "bin": {
-    "plaid-cli": "./bin/run"
+    "budget-data": "./bin/run"
   },
-  "bugs": "https://github.com/adamclerk/plaid-cli/issues",
+  "bugs": "https://github.com/adamclerk/budget-data/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -62,7 +62,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/adamclerk/plaid-cli",
+  "homepage": "https://github.com/adamclerk/budget-data",
   "keywords": [
     "oclif"
   ],
@@ -70,12 +70,12 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "plaid-cli",
+    "bin": "budget-data",
     "plugins": [
       "@oclif/plugin-help"
     ]
   },
-  "repository": "adamclerk/plaid-cli",
+  "repository": "adamclerk/budget-data",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "tslint -p test -t stylish",
